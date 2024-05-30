@@ -6,9 +6,9 @@ Creiamo i test per la nostra funzione createSlug che crea gli slug dei nostri po
 
 Eseguiamo i seguenti test:
 
-1. CreateSlug dovrebbe ritornare una stringa.
+1. createSlug dovrebbe ritornare una stringa.
 
-2. CreateSlug dovrebbe ritornare una stringa in lowercase.
+2. createSlug dovrebbe ritornare una stringa in lowercase.
 
 3. createSlug dovrebbe ritornare una stringa con gli spazi sostituiti da -.
 
