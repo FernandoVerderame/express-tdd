@@ -4,57 +4,27 @@ const { test, expect } = require("@jest/globals");
 const posts = require("../db/posts.json");
 
 // Funzione da testare
-const createSlug = (title, posts) => {
-    if (!title) {
-        throw new Error('Il titolo è obbligatorio');
-    }
-    if (typeof title !== 'string') {
-        throw new Error('Il titolo deve essere una stringa');
-    }
-
-    if (!posts) {
-        throw new Error('Inserisci la lista dei posts')
-    }
-
-    let baseSlug = '';
-    if (title.includes(' ')) {
-        baseSlug = title.toLowerCase().replaceAll(' ', '-');
-    } else {
-        baseSlug = title.toLowerCase();
-    }
-
-    const slugs = posts.map(p => p.slug);
-    let counter = 1;
-    let slug = baseSlug;
-
-    while (slugs.includes(slug)) {
-        slug = `${baseSlug}-${counter}`;
-        counter++;
-    }
-    return slug;
-}
+const createSlug = require("../utils/createslug");
 
 // 1. createSlug dovrebbe ritornare una stringa
 test('createSlug dovrebbe ritornare una stringa', () => {
-
-    expect(typeof createSlug('Carbonara', posts)).toBe('string');
+    const slug = createSlug('Carbonara', posts);
+    expect(typeof slug).toBe('string');
 });
 
 // 2. createSlug dovrebbe ritornare una stringa in lowercase
 test('createSlug dovrebbe ritornare una stringa in lowercase', () => {
-
-    expect(createSlug('Carbonara', posts) === createSlug('Carbonara', posts).toLowerCase()).toBe(true);
+    const slug = createSlug('Carbonara', posts);
+    expect(slug === slug.toLowerCase()).toBe(true);
 });
 
 // 3. createSlug dovrebbe ritornare una stringa con gli spazi sostituiti da "-"
 test('createSlug dovrebbe ritornare una stringa con gli spazi sostituiti da -', () => {
-
     expect(createSlug('Carbonara Di Pesce', posts)).toMatch('-');
 });
 
 // 4. createSlug dovrebbe incrementare di 1 lo slug quando esiste già
 test('createSlug dovrebbe incrementare di 1 lo slug quando esiste già', () => {
-
     const slugs = posts.map(p => p.slug);
     const slug = createSlug('Cracker alla barbabietola', posts);
     expect(slugs.includes(slug)).toBe(false);
@@ -62,7 +32,6 @@ test('createSlug dovrebbe incrementare di 1 lo slug quando esiste già', () => {
 
 // 5. createSlug dovrebbe lanciare un errore in caso di titolo non presente o formato errato
 test('createSlug dovrebbe lanciare un errore in caso di titolo non presente o formato errato', () => {
-
     expect(() => createSlug(24, posts)).toThrow();
     expect(() => createSlug(undefined, posts)).toThrow();
     expect(() => createSlug('', posts)).toThrow();
@@ -70,6 +39,5 @@ test('createSlug dovrebbe lanciare un errore in caso di titolo non presente o fo
 
 // 6. createSlug dovrebbe lanciare un errore se manca l'array dei post
 test('createSlug dovrebbe lanciare un errore se manca l\'array dei post', () => {
-
     expect(() => createSlug('Budino al cioccolato')).toThrow();
 })
