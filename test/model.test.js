@@ -15,6 +15,10 @@ class Model {
     read() {
         return this.file;
     }
+
+    add() {
+        return 'Aggiungi un file';
+    }
 }
 
 // 1. Model dovrebbe essere una classe (crea un'istanza della classe Model)
@@ -32,4 +36,10 @@ test('L\'istanza di model dovrebbe richiedere il nome del file json da usare in 
 test('L\'istanza di model dovrebbe avere il metodo read', () => {
     const model = new Model(posts);
     expect(model.read()).toBeDefined();
+});
+
+// 4. L'istanza di model dovrebbe avere il metodo add
+test('L\'istanza di model dovrebbe avere il metodo add', () => {
+    const model = new Model(posts);
+    expect(model.add()).toBeDefined();
 });
