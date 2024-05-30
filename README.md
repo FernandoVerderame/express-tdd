@@ -19,3 +19,13 @@ Eseguiamo i seguenti test:
 6. createSlug dovrebbe lanciare un errore se manca l'array dei post.
 
 Lavoriamo in ottica TDD, quindi prima scriviamo il singolo test, e dopo scriviamo il codice necessario per far superare il nostro test.
+
+### BONUS
+
+1. Model dovrebbe essere una classe (crea un'istanza della classe Model).
+
+2. L'istanza di model dovrebbe richiedere il nome del file json da usare in fase di creazione dell'istanza.
+
+3. L'istanza di model dovrebbe avere il metodo read.
+
+4. L'istanza di model dovrebbe avere il metodo add.
