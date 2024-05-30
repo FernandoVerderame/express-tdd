@@ -11,15 +11,22 @@ const createSlug = (title, posts) => {
     if (typeof title !== 'string') {
         throw new Error('Il titolo deve essere una stringa');
     }
+
+    if (!posts) {
+        throw new Error('Inserisci la lista dei posts')
+    }
+
     let baseSlug = '';
     if (title.includes(' ')) {
         baseSlug = title.toLowerCase().replaceAll(' ', '-');
     } else {
         baseSlug = title.toLowerCase();
     }
+
     const slugs = posts.map(p => p.slug);
     let counter = 1;
     let slug = baseSlug;
+
     while (slugs.includes(slug)) {
         slug = `${baseSlug}-${counter}`;
         counter++;
@@ -56,7 +63,13 @@ test('createSlug dovrebbe incrementare di 1 lo slug quando esiste già', () => {
 // 5. createSlug dovrebbe lanciare un errore in caso di titolo non presente o formato errato
 test('createSlug dovrebbe lanciare un errore in caso di titolo non presente o formato errato', () => {
 
-    expect(() => createSlug(24, posts)).toThrow;
-    expect(() => createSlug(undefined, posts)).toThrow;
-    expect(() => createSlug('', posts)).toThrow;
+    expect(() => createSlug(24, posts)).toThrow();
+    expect(() => createSlug(undefined, posts)).toThrow();
+    expect(() => createSlug('', posts)).toThrow();
 });
+
+// 6. createSlug dovrebbe lanciare un errore se manca l'array dei post
+test('createSlug dovrebbe lanciare un errore se manca l\'array dei post', () => {
+
+    expect(() => createSlug('Budino al cioccolato')).toThrow();
+})
